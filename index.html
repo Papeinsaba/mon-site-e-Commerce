@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Commerce WhatsApp</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+
+<body>
+    <header>
+        <h1> <img src="logo2.jpg" alt="" id="logo"> BIENVENUE CHEZ BARHAM COSMETIQUE </h1>
+       
+        
+    </header>
+    
+    
+    <section id="products">
+        <h2> Mes Produits</h2>
+        <div id="product-list"></div>
+    </section>
+    
+    <section id="cart">
+        <h2>Panier</h2>
+        <div id="cart-items"></div>
+        <p>Total: <span id="total-price">0</span> FCFA</p>
+        <button onclick="sendWhatsAppOrder()">Commander via WhatsApp</button>
+    </section>
+    
+    <section id="payment">
+        <h2>Moyens de Paiement</h2>
+        <p>Nous acceptons les paiements via :</p>
+        <ul>
+            <li>Wave</li>
+            <li>Orange Money</li>
+        </ul>
+    </section>
+    
+    <script>
+        let products = [
+            { name: "Rouge à lèvres", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Fond de teint", price: 10000, image: "https://via.placeholder.com/100" },
+            { name: "Palette de maquillage", price: 15000, image: "https://via.placeholder.com/100" },
+            { name: "Crème hydratante", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Poudre compacte", price: 8000, image: "https://via.placeholder.com/100" },
+            { name: "Mascara", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Vernis à ongles", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Crayon à sourcils", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Crayon à lèvres", price: 2000, image: "https://via.placeholder.com/100" },
+            { name: "Eyeliner", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Démaquillant", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Pinceaux de maquillage", price: 10000, image: "https://via.placeholder.com/100" },
+            { name: "Savon", price: 2000, image: "https://via.placeholder.com/100" },
+            { name: "Gel douche", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Lait de corps"  , price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Shampoing", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Après-shampoing", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Crème pour le corps", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Crème pour le visage", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Crème pour les mains", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Crème pour les pieds", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Huile pour les cheveux", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Huile pour le corps", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Huile pour le visage", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Huile pour les ongles", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Sérum pour le visage", price: 8000, image: "https://via.placeholder.com/100" },
+            { name: "Sérum pour les cheveux", price: 9000, image: "https://via.placeholder.com/100" },
+            { name: "Sérum pour les cils", price: 10000, image: "https://via.placeholder.com/100" },
+            { name: "Sérum pour les sourcils", price: 11000, image: "https://via.placeholder.com/100" },
+            { name: "Sérum pour les ongles", price: 12000, image: "https://via.placeholder.com/100" },
+            { name: "Masque pour le visage", price: 5000, image: "https://via.placeholder.com/100"}, 
+            { name: "Masque pour les cheveux", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Masque pour les mains", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Masque pour les pieds", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Masque pour les ongles", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Gommage pour le visage", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Gommage pour le corps", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Gommage pour les mains", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Gommage pour les pieds", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Gommage pour les ongles", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume à lèvres", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les mains", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les pieds", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les ongles", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les coudes", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les genoux", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les talons", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les lèvres", price: 5000, image :  "https://via.placeholder.com/100"},
+            { name: "Baume pour les yeux", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les sourcils", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les cils", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les cheveux", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour le visage", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour le corps", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les mains", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les pieds", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les ongles", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les coudes", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les genoux", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les talons", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les lèvres", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les yeux", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les sourcils", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les cils", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les cheveux", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour le visage", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour le corps", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les mains", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les pieds", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les ongles", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les coudes", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les genoux", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les talons", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les lèvres", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les yeux", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les sourcils", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les cils", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les cheveux", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour le visage", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour le corps", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les mains", price: 5000, image: "https://via.placeholder.com/100" },    
+            { name: "Baume pour les pieds", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les ongles", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les coudes", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les genoux", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les talons", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les lèvres", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les yeux", price: 7000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les sourcils", price: 3000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les cils", price: 4000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour les cheveux", price: 5000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour le visage", price: 6000, image: "https://via.placeholder.com/100" },
+            { name: "Baume pour le corps", price: 7000, image: "https://via.placeholder.com/100" },
+
+
+            ];
+
+        let cart = [];
+
+        function displayProducts() {
+            let productList = document.getElementById("product-list");
+            productList.innerHTML = "";
+            products.forEach((product, index) => {
+                productList.innerHTML += `<div>
+                    <img src="${product.image}" alt="${product.name}" style="width:100px; height:100px; object-fit:cover;">
+                    <p>${product.name} - ${product.price} FCFA</p>
+                    <button onclick="addToCart(${index})">Ajouter au panier</button>
+                </div>`;
+            });
+        }
+
+        function addToCart(index) {
+            cart.push(products[index]);
+            displayCart();
+        }
+
+        function displayCart() {
+            let cartItems = document.getElementById("cart-items");
+            let totalPrice = document.getElementById("total-price");
+            cartItems.innerHTML = "";
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartItems.innerHTML += `<div>
+                    <img src="${item.image}" alt="${item.name}" style="width:50px; height:50px; object-fit:cover;">
+                    <p>${item.name} - ${item.price} FCFA</p>
+                    <button onclick="removeFromCart(${index})">Retirer</button>
+                </div>`;
+            });
+            totalPrice.textContent = total;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            displayCart();
+        }
+
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                alert("Votre panier est vide !");
+                return;
+            }
+            let message = "Commande : %0A";
+            let total = 0;
+            cart.forEach(item => {
+                message += `- ${item.name} : ${item.price} FCFA%0A`;
+                total += item.price;
+            });
+            message += `Total : ${total} FCFA`;
+            let phoneNumber = "221777324694"; // Remplace avec ton numéro WhatsApp
+            let url = `https://wa.me/${221777324694}?text=${message}`;
+            window.open(url, "_blank");
+        }
+
+        window.onload = displayProducts;
+        document.addEventListener("DOMContentLoaded", function () {
+    let productList = document.getElementById("product-list");
+    let cartItems = document.getElementById("cart-items");
+    let totalPriceElement = document.getElementById("total-price");
+
+    let cart = [];
+
+    function displayProducts() {
+        products.forEach((product, index) => {
+            let productDiv = document.createElement("div");
+            productDiv.classList.add("product");
+            productDiv.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>${product.price} FCFA</p>
+                <button onclick="addToCart(${index})">Ajouter au panier</button>
+            `;
+            productList.appendChild(productDiv);
+        });
+    }
+
+    window.addToCart = function (index) {
+        cart.push(products[index]);
+        updateCart();
+    };
+
+    function updateCart() {
+        cartItems.innerHTML = "";
+        let total = 0;
+        cart.forEach((item, index) => {
+            total += item.price;
+            cartItems.innerHTML += `
+                <div class="cart-item">
+                    <span>${item.name} - ${item.price} FCFA</span>
+                    <button onclick="removeFromCart(${index})">❌</button>
+                </div>
+            `;
+        });
+        totalPriceElement.innerText = total;
+    }
+
+    window.removeFromCart = function (index) {
+        cart.splice(index, 1);
+        updateCart();
+    };
+
+    window.sendWhatsAppOrder = function () {
+        let message = "Bonjour, je souhaite commander :\n";
+        cart.forEach(item => {
+            message += `- ${item.name}: ${item.price} FCFA\n`;
+        });
+        message += `\nTotal : ${totalPriceElement.innerText} FCFA`;
+        let whatsappURL = `https://wa.me/TON_NUMERO?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, "_blank");
+    };
+
+    displayProducts();
+});
+
+    </script>
+    
+</body>
+</html>
